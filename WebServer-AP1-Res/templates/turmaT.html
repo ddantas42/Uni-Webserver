@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Turma PgWeb</title>
+	</head>
+	
+	<body>
+		<h1 align="center">Turma de PgWeb - Versão 2 - Dinâmica</h1>
+		
+		<table border="1" align="center">
+			<tr>
+				<td>Unidade Curricular</td> <td colspan="2">Programação Web</td>
+			</tr>
+			
+			<tr>
+				<td rowspan="3">Professor</td>
+				<td>Nome</td>
+				<td>João</td>
+			</tr>
+			
+			<tr>
+				<td>Sobrenome</td>
+				<td>Almeida</td>
+			</tr>
+			
+			<tr>
+				<td>Email</td>
+				<td><a href="mailto:joao.almeida@escola.pt">joao.almeida@escola.pt</a></td>
+			</tr>
+				{% for currentStudent in turma[ 'grupos'] %}
+			<tr>
+				<td rowspan="3">Grupos</td>
+				<td colspan="2"><a href="/grupo?gID=0">Grupo 1</a></td>
+			</tr>
+			
+			<tr>
+				<td colspan="2"><a href="/grupo?gID=1">Grupo 2</a></td>
+			</tr>
+			
+			<tr>
+				<td colspan="2"><a href="/grupo?gID=2">Grupo 3</a></td>
+			</tr>
+			
+		</table>
+		
+		<a href="/static/index.html">Back</a>
+	</body>
+</html>
