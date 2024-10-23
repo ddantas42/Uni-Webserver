@@ -21,7 +21,9 @@ app.config[ 'UPLOAD_FOLDER' ] = "./static/images"
 #
 logging.basicConfig( level=logging.DEBUG )
 
-#
+grupoNbr = 0
+
+#1
 # Função auxiliar para ler dados JSON (em formato utf-8) de um ficheiro
 #
 def loadData(fName):
@@ -64,6 +66,17 @@ def getFavicon():
     logging.debug( f"Route /favicon.ico called..." )
     return send_file( "./static/favicon.ico", as_attachment=True, max_age=1 )
 
+@app.route('/turma', methods=(['GET']))
+def renderTurma():
+	logging.debug( f"Route /turma called..." )
+
+	# Ler a "base de dados" de utilizadores de um ficheiro
+	db = loadData( './private/dados.json' )
+
+	turma = db[ 'turmas' ][ db.grupos ]
+
+	return render_template( 'turmaT.html', turma=turma )
+
 #
 # Rota para processar o formulário de adição de um aluno
 #
@@ -105,3 +118,18 @@ def renderAddGrupo():
 
 
 	return redirect( "/static/index.html", code=302 )
+
+
+# @app.route('/grupo', methods=(['GET']) )
+# def renderGrupo():
+#     logging.debug( f"Route /grupo called..." )
+
+#     groupID = int ( request.args[ 'gID' ] )
+
+#     # Ler a "base de dados" de utilizadores de um ficheiro
+#     db = loadData( './private/dados.json' )
+
+#     group = db[ 'grupos' ][ groupID ]
+
+#     return render_template( 'grupoT.html', group=group )
+

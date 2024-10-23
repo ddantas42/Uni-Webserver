@@ -56,7 +56,8 @@ def renderGrupo():
     group = db[ 'grupos' ][ groupID ]
 
     return render_template( 'grupoT.html', group=group )
-@app.rout('/turma', methods=(['GET']) )
+
+@app.route('/turma', methods=(['GET']) )
 def renderTurma():
 	logging.debug( f"Route /turma called..." )
 

@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>PgWeb - AP3</title>
+		<title>Turma PgWeb</title>
 	</head>
 	
 	<body>
-		<h1 align="center">Turma de PgWeb - Versão 1 - Estática</h1>
+		<h1 align="center">Turma de PgWeb - Versão 2 - Dinâmica</h1>
 		
 		<table border="1" align="center">
 			<tr>
@@ -27,19 +27,21 @@
 				<td>Email</td>
 				<td><a href="mailto:joao.almeida@escola.pt">joao.almeida@escola.pt</a></td>
 			</tr>
+				{% for currentStudent in turma[ 'grupos'] %}
+			 <tr> 
 			
-			<tr>
 				<td rowspan="3">Grupos</td>
-				<td colspan="2"><a href="grupo1.html">Grupo 1</a></td>
+				<td colspan="2"><a href="/grupo?gID=0">Grupo 1</a></td>
 			</tr>
 			
 			<tr>
-				<td colspan="2"><a href="grupo2.html">Grupo 2</a></td>
+				<td colspan="2"><a href="/grupo?gID=1">Grupo 2</a></td>
 			</tr>
 			
 			<tr>
-				<td colspan="2"><a href="grupo3.html">Grupo 3</a></td>
-			</tr>
+				<td colspan="2"><a href="/grupo?gID=2">Grupo 3</a></td>
+			</tr> 
+			-->
 			
 		</table>
 		
