@@ -46,6 +46,7 @@ def saveData(fName, data):
     f.close()
 
     return data
+	
 
 #
 # Adicionar o tratamento das rotas / e /static e /static/
@@ -74,6 +75,19 @@ def renderTurma():
 	turma = db[ 'grupos' ]
 
 	return render_template( 'turmaT.html', turma=turma )
+
+@app.route('/grupo', methods=(['GET']) )
+def renderGrupo():
+    logging.debug( f"Route /grupo called..." )
+
+    groupID = int ( request.args[ 'gID' ] )
+
+    # Ler a "base de dados" de utilizadores de um ficheiro
+    db = loadData( './private/dados.json' )
+
+    group = db[ 'grupos' ][ groupID ]
+
+    return render_template( 'grupoT.html', group=group )
 
 #
 # Rota para processar o formulário de adição de um aluno
@@ -108,26 +122,27 @@ def renderAddAluno():
 
     return redirect( "/static/index.html", code=302 )
 
+def group_already_exists(db, group_name):
+	return any(group['designacao'] == group_name for group in db['grupos'])
+
 @app.route('/addGrupo', methods=(['POST']) )
 def renderAddGrupo():
-	logging.debug( f"Route /addGrupo called..." )
-	logging.debug( f'Form data: {request.form}')
+    logging.debug(f"Route /addGrupo called...")
+    logging.debug(f'Form data: {request.form}')
 
+    group_name = request.form['Group_Name']
+    db = loadData('./private/dados.json')  # Corrected 'db' usage here
 
+    if group_already_exists(db, group_name):  # Corrected function name
+        return render_template('dadosInvalidosT.html', errorMessage="Group already exists", redirectURL=request.referrer)
+    else:
+        new_group = {
+            "designacao": group_name,
+            "alunos": []
+        }
+        db['grupos'].append(new_group)
 
-	return redirect( "/static/index.html", code=302 )
+        # Save the updated data to the JSON file
+        saveData('./private/dados.json', db)  # Save the updated db
 
-
-@app.route('/grupo', methods=(['GET']) )
-def renderGrupo():
-    logging.debug( f"Route /grupo called..." )
-
-    groupID = int ( request.args[ 'gID' ] )
-
-    # Ler a "base de dados" de utilizadores de um ficheiro
-    db = loadData( './private/dados.json' )
-
-    group = db[ 'grupos' ][ groupID ]
-
-    return render_template( 'grupoT.html', group=group )
-
+    return redirect("/static/index.html", code=302)

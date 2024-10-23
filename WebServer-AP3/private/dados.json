@@ -1,12 +1,11 @@
 {
-    "uc": "Programação Web",
-    "professor": 
-        {
-            "nome" : "João",
-            "sobrenome": "Almeida",
-            "email": "joao.almeida@escola.pt"
-        },
-    "curso": "Ciência da Computação",
+    "uc": "Programa\u00e7\u00e3o Web",
+    "professor": {
+        "nome": "Jo\u00e3o",
+        "sobrenome": "Almeida",
+        "email": "joao.almeida@escola.pt"
+    },
+    "curso": "Ci\u00eancia da Computa\u00e7\u00e3o",
     "grupos": [
         {
             "designacao": "G01",
@@ -29,7 +28,7 @@
                 },
                 {
                     "numero": 2622,
-                    "nome": "João",
+                    "nome": "Jo\u00e3o",
                     "sobrenome": "Silva",
                     "telefone": "+351 911574173",
                     "email": "joao.silva@outlook.com",
@@ -87,7 +86,7 @@
                 }
             ]
         },
-		{
+        {
             "designacao": "G04",
             "alunos": [
                 {
@@ -99,6 +98,10 @@
                     "foto_perfil": "1243.jpeg"
                 }
             ]
+        },
+        {
+            "designacao": "SDS",
+            "alunos": []
         }
     ]
 }
