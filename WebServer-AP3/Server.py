@@ -92,15 +92,19 @@ def renderGrupo():
 #
 # Rota para processar o formulário de adição de um aluno
 #
+def check_addAluno(request):
+	return 0
+
 @app.route('/addAluno', methods=(['POST']) )
 def renderAddAluno():
     logging.debug( f"Route /addAluno called..." )
+    logging.debug( f"request ${request}" )
 
-    if 'imageProfile' not in request.files:
+    if 'foto_perfil' not in request.files:
         logging.debug( "No file part!" )
         return render_template( 'dadosInvalidosT.html', errorMessage="No file part!", redirectURL=request.referrer )
     
-    file = request.files[ 'imageProfile' ]
+    file = request.files[ 'foto_perfil' ]
 
     # If the user does not select a file, the browser submits an
     # empty file without a filename.
