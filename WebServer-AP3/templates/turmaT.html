@@ -5,8 +5,11 @@
 	</head>
 	
 	<body>
+
 		<h1 align="center">Turma de PgWeb - Versão 2 - Dinâmica</h1>
 		
+		<h2 align="center"> Group lengh = {{ turma['groups']|length }} </h2>
+
 		<table border="1" align="center">
 			<tr>
 				<td>Unidade Curricular</td> <td colspan="2">Programação Web</td>
@@ -27,22 +30,18 @@
 				<td>Email</td>
 				<td><a href="mailto:joao.almeida@escola.pt">joao.almeida@escola.pt</a></td>
 			</tr>
-				{% for currentStudent in turma[ 'grupos'] %}
-			 <tr> 
-			
-				<td rowspan="3">Grupos</td>
-				<td colspan="2"><a href="/grupo?gID=0">Grupo 1</a></td>
+
+			<tr> 
+				<td rowspan="{{ turma['groups']|length }}">Grupos</td>
 			</tr>
-			
-			<tr>
-				<td colspan="2"><a href="/grupo?gID=1">Grupo 2</a></td>
-			</tr>
-			
-			<tr>
-				<td colspan="2"><a href="/grupo?gID=2">Grupo 3</a></td>
-			</tr> 
-			-->
-			
+
+
+            {% for group in turma %}
+            <tr>
+                <td colspan="2"><a href="/grupo?gID={{ loop.index0 }}">Grupo {{ group['designacao'] }}</a></td>
+            </tr>
+            {% endfor %}
+
 		</table>
 		
 		<a href="/static/index.html">Back</a>

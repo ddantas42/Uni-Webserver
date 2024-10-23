@@ -21,8 +21,6 @@ app.config[ 'UPLOAD_FOLDER' ] = "./static/images"
 #
 logging.basicConfig( level=logging.DEBUG )
 
-grupoNbr = 0
-
 #1
 # Função auxiliar para ler dados JSON (em formato utf-8) de um ficheiro
 #
@@ -73,7 +71,7 @@ def renderTurma():
 	# Ler a "base de dados" de utilizadores de um ficheiro
 	db = loadData( './private/dados.json' )
 
-	turma = db[ 'turmas' ][ db.grupos ]
+	turma = db[ 'grupos' ]
 
 	return render_template( 'turmaT.html', turma=turma )
 
@@ -120,16 +118,16 @@ def renderAddGrupo():
 	return redirect( "/static/index.html", code=302 )
 
 
-# @app.route('/grupo', methods=(['GET']) )
-# def renderGrupo():
-#     logging.debug( f"Route /grupo called..." )
+@app.route('/grupo', methods=(['GET']) )
+def renderGrupo():
+    logging.debug( f"Route /grupo called..." )
 
-#     groupID = int ( request.args[ 'gID' ] )
+    groupID = int ( request.args[ 'gID' ] )
 
-#     # Ler a "base de dados" de utilizadores de um ficheiro
-#     db = loadData( './private/dados.json' )
+    # Ler a "base de dados" de utilizadores de um ficheiro
+    db = loadData( './private/dados.json' )
 
-#     group = db[ 'grupos' ][ groupID ]
+    group = db[ 'grupos' ][ groupID ]
 
-#     return render_template( 'grupoT.html', group=group )
+    return render_template( 'grupoT.html', group=group )
 

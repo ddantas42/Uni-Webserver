@@ -86,6 +86,19 @@
                     "foto_perfil": "1243.jpeg"
                 }
             ]
+        },
+		{
+            "designacao": "G04",
+            "alunos": [
+                {
+                    "numero": 1243,
+                    "nome": "MY MAN",
+                    "sobrenome": "THE GUY",
+                    "telefone": "+351 901588568",
+                    "email": "carlos.pereira@outlook.com",
+                    "foto_perfil": "1243.jpeg"
+                }
+            ]
         }
     ]
 }
