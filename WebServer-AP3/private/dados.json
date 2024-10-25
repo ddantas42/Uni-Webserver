@@ -101,7 +101,16 @@
         },
         {
             "designacao": "SDS",
-            "alunos": []
+            "alunos": [
+                {
+                    "numero": "hgjb",
+                    "nome": "hgjb",
+                    "sobrenome": "hgjb",
+                    "telefone": "hgjb",
+                    "email": "hgjb",
+                    "foto_perfil": "1243.jpEg"
+                }
+            ]
         }
     ]
 }

@@ -25,27 +25,27 @@ logging.basicConfig( level=logging.DEBUG )
 # Função auxiliar para ler dados JSON (em formato utf-8) de um ficheiro
 #
 def loadData(fName):
-    logging.debug( f"Loading data from {fName}..." )
+	logging.debug( f"Loading data from {fName}..." )
 
-    with open( fName, encoding='utf-8') as f:
-        data = json.load( f )
-    f.close()
+	with open( fName, encoding='utf-8') as f:
+		data = json.load( f )
+	f.close()
 
-    return data
+	return data
 
 #
 # Função auxiliar para escrever dados JSON (em formato utf-8) num ficheiro
 #
 def saveData(fName, data):
-    logging.debug( f"Saving data to {fName}..." )
+	logging.debug( f"Saving data to {fName}..." )
 
-    data_json = json.dumps( data, indent=4)
+	data_json = json.dumps( data, indent=4)
 
-    with open( fName, "w", encoding='utf-8') as f:
-        f.write( data_json )
-    f.close()
+	with open( fName, "w", encoding='utf-8') as f:
+		f.write( data_json )
+	f.close()
 
-    return data
+	return data
 	
 
 #
@@ -57,13 +57,13 @@ def saveData(fName, data):
 @app.route('/')
 @app.route('/static')
 def getRoot():
-    logging.debug( f"Route / called..." )
-    return redirect( "/static/index.html", code=302 )
+	logging.debug( f"Route / called..." )
+	return redirect( "/static/index.html", code=302 )
 
 @app.route('/favicon.ico')
 def getFavicon():
-    logging.debug( f"Route /favicon.ico called..." )
-    return send_file( "./static/favicon.ico", as_attachment=True, max_age=1 )
+	logging.debug( f"Route /favicon.ico called..." )
+	return send_file( "./static/favicon.ico", as_attachment=True, max_age=1 )
 
 @app.route('/turma', methods=(['GET']))
 def renderTurma():
@@ -78,75 +78,82 @@ def renderTurma():
 
 @app.route('/grupo', methods=(['GET']) )
 def renderGrupo():
-    logging.debug( f"Route /grupo called..." )
+	logging.debug( f"Route /grupo called..." )
 
-    groupID = int ( request.args[ 'gID' ] )
+	groupID = int ( request.args[ 'gID' ] )
 
-    # Ler a "base de dados" de utilizadores de um ficheiro
-    db = loadData( './private/dados.json' )
+	# Ler a "base de dados" de utilizadores de um ficheiro
+	db = loadData( './private/dados.json' )
 
-    group = db[ 'grupos' ][ groupID ]
+	group = db[ 'grupos' ][ groupID ]
 
-    return render_template( 'grupoT.html', group=group )
+	return render_template( 'grupoT.html', group=group )
 
 #
 # Rota para processar o formulário de adição de um aluno
 #
-def check_addAluno(request):
+def does_group_exists(grupo):
+	db = loadData('./private/dados.json')
+	for group in db['grupos']:
+		if group['designacao'] == grupo:
+			return 1
 	return 0
 
 @app.route('/addAluno', methods=(['POST']) )
 def renderAddAluno():
-    logging.debug( f"Route /addAluno called..." )
-    logging.debug( f"request ${request}" )
+	logging.debug( f"Route /addAluno called..." )
+	logging.debug( f"request ${request.form}" )
 
-    if 'foto_perfil' not in request.files:
-        logging.debug( "No file part!" )
-        return render_template( 'dadosInvalidosT.html', errorMessage="No file part!", redirectURL=request.referrer )
-    
-    file = request.files[ 'foto_perfil' ]
+	if 'foto_perfil' not in request.files:
+		logging.debug( "No file part!" )
+		return render_template( 'dadosInvalidosT.html', errorMessage="No file part!", redirectURL=request.referrer )
 
-    # If the user does not select a file, the browser submits an
-    # empty file without a filename.
+	if (does_group_exists(request.form['grupo']) == 0):
+		return render_template('dadosInvalidosT.html', errorMessage="Group does not exist", redirectURL=request.referrer)
+	
+	file = request.files[ 'foto_perfil' ]
+	filename = file.filename
+	file.save( os.path.join( app.config['UPLOAD_FOLDER'], filename) )
 
-    if file.filename == '':
-        logging.debug( "No selected file!" )
-        return render_template( 'dadosInvalidosT.html', errorMessage="No selected file!", redirectURL=request.referrer )
+	novo_aluno = {
+		"numero": request.form[ 'numero' ],
+		"nome": request.form[ 'nome' ],
+		"sobrenome": request.form[ 'sobrenome' ],
+		"telefone": request.form[ 'telefone' ],
+		"email": request.form[ 'email' ],
+		"foto_perfil": filename
+	}
 
-    filename = file.filename
+	db = loadData( './private/dados.json' )
+	for group in db['grupos']:
+		if group['designacao'] == request.form['grupo']:
+			group['alunos'].append(novo_aluno)
+	
+	saveData( './private/dados.json', db )
 
-    file.save( os.path.join( app.config['UPLOAD_FOLDER'], filename) )
-
-        # "numero": 7851,
-        # "nome": "Isabel",
-        # "sobrenome": "Oliveira",
-        # "telefone": "+351 912494415",
-        # "email": "isabel.oliveira@outlook.com",
-        # "foto_perfil": "7851.jpeg"
-
-    return redirect( "/static/index.html", code=302 )
+	return redirect( "/static/index.html", code=302 )
 
 def group_already_exists(db, group_name):
 	return any(group['designacao'] == group_name for group in db['grupos'])
 
 @app.route('/addGrupo', methods=(['POST']) )
 def renderAddGrupo():
-    logging.debug(f"Route /addGrupo called...")
-    logging.debug(f'Form data: {request.form}')
+	logging.debug(f"Route /addGrupo called...")
+	logging.debug(f'Form data: {request.form}')
 
-    group_name = request.form['Group_Name']
-    db = loadData('./private/dados.json')  # Corrected 'db' usage here
+	group_name = request.form['Group_Name']
+	db = loadData('./private/dados.json')  # Corrected 'db' usage here
 
-    if group_already_exists(db, group_name):  # Corrected function name
-        return render_template('dadosInvalidosT.html', errorMessage="Group already exists", redirectURL=request.referrer)
-    else:
-        new_group = {
-            "designacao": group_name,
-            "alunos": []
-        }
-        db['grupos'].append(new_group)
+	if group_already_exists(db, group_name):  # Corrected function name
+		return render_template('dadosInvalidosT.html', errorMessage="Group already exists", redirectURL=request.referrer)
+	else:
+		new_group = {
+			"designacao": group_name,
+			"alunos": []
+		}
+		db['grupos'].append(new_group)
 
-        # Save the updated data to the JSON file
-        saveData('./private/dados.json', db)  # Save the updated db
+		# Save the updated data to the JSON file
+		saveData('./private/dados.json', db)  # Save the updated db
 
-    return redirect("/static/index.html", code=302)
+	return redirect("/static/index.html", code=302)
