@@ -89,26 +89,25 @@ def renderGrupo():
 
 	return render_template( 'grupoT.html', group=group )
 
+def group_already_exists(db, group_name):
+	return any(group['designacao'] == group_name for group in db['grupos'])
+
 #
 # Rota para processar o formulário de adição de um aluno
 #
-def does_group_exists(grupo):
-	db = loadData('./private/dados.json')
-	for group in db['grupos']:
-		if group['designacao'] == grupo:
-			return 1
-	return 0
-
 @app.route('/addAluno', methods=(['POST']) )
 def renderAddAluno():
 	logging.debug( f"Route /addAluno called..." )
 	logging.debug( f"request ${request.form}" )
 
+	db = loadData('./private/dados.json')
+
+
 	if 'foto_perfil' not in request.files:
 		logging.debug( "No file part!" )
 		return render_template( 'dadosInvalidosT.html', errorMessage="No file part!", redirectURL=request.referrer )
 
-	if (does_group_exists(request.form['grupo']) == 0):
+	if (group_already_exists(db, request.form['grupo'])):
 		return render_template('dadosInvalidosT.html', errorMessage="Group does not exist", redirectURL=request.referrer)
 	
 	file = request.files[ 'foto_perfil' ]
@@ -124,7 +123,6 @@ def renderAddAluno():
 		"foto_perfil": filename
 	}
 
-	db = loadData( './private/dados.json' )
 	for group in db['grupos']:
 		if group['designacao'] == request.form['grupo']:
 			group['alunos'].append(novo_aluno)
@@ -133,8 +131,6 @@ def renderAddAluno():
 
 	return redirect( "/static/index.html", code=302 )
 
-def group_already_exists(db, group_name):
-	return any(group['designacao'] == group_name for group in db['grupos'])
 
 @app.route('/addGrupo', methods=(['POST']) )
 def renderAddGrupo():
