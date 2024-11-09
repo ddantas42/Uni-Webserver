@@ -1,0 +1,21 @@
+[
+	{ "ID" : "1", "Valor" : "Águeda" },
+	{ "ID" : "2", "Valor" : "Albergaria-a-Velha" },
+	{ "ID" : "3", "Valor" : "Anadia" },
+	{ "ID" : "4", "Valor" : "Arouca" },
+	{ "ID" : "5", "Valor" : "Aveiro" },
+	{ "ID" : "6", "Valor" : "Castelo de Paiva" },
+	{ "ID" : "7", "Valor" : "Espinho" },
+	{ "ID" : "8", "Valor" : "Estarreja" },
+	{ "ID" : "9", "Valor" : "Santa Maria da Feira" },
+	{ "ID" : "10", "Valor" : "Ílhavo" },
+	{ "ID" : "11", "Valor" : "Mealhada" },
+	{ "ID" : "12", "Valor" : "Murtosa" },
+	{ "ID" : "13", "Valor" : "Oliveira de Azeméis" },
+	{ "ID" : "14", "Valor" : "Oliveira do Bairro" },
+	{ "ID" : "15", "Valor" : "Ovar" },
+	{ "ID" : "16", "Valor" : "São João da Madeira" },
+	{ "ID" : "17", "Valor" : "Sever do Vouga" },
+	{ "ID" : "18", "Valor" : "Vagos" },
+	{ "ID" : "19", "Valor" : "Vale de Cambra" }
+]

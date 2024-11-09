@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Update user profile - Forms App</title>
+		
+        <meta http-equiv='Content-Type' content='text/html; charset=utf-8'>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+				
+		<!-- Estilos globais do projeto - Begin -->
+        <link rel="stylesheet" type="text/css" href="/static/styles/GlobalStyle.css">
+		<!-- Estilos globais do projeto - End -->
+		
+		<!-- Código JavaScript global do projeto - Begin -->
+        <script type="text/javascript" src="/static/scripts/forms.js">
+        </script>
+		<!-- Código JavaScript global do projeto - End -->		
+    </head>
+
+    <body>
+        <div>
+            <h1>Processing HTML Forms with Phyton</h1>
+            <h2>Update Profile</h2>
+        </div>
+        
+        <form 
+          enctype="multipart/form-data"
+          action="/doProfile"
+          onsubmit="return FormProfileValidator()"
+		      onreset="resetMap()"
+          method="POST"
+          name="FormProfile">
+
+        <div>
+            <div>Alias</div><div><input type="text" size="15" maxlength="15" name="alias"></div>
+        </div>
+
+        <br>
+
+        <div>
+            <div>Password</div><div><input type="password" size="15" maxlength="15" name="password"></div>
+        </div>
+
+        <br>
+
+        <div>
+            <div>Hobbies</div>
+            <div>
+                <div>Cars</div><div><input type="checkbox" name="hobbyCars"></div>
+                <div>Trains</div><div><input type="checkbox" name="hobbyTrains"></div>  
+            </div>
+        </div>
+
+        <div>
+            <div>Idade</div>
+            <div>
+                <div><input type="radio" name="age" value="R1"> Menos de 18</div>
+                <div><input type="radio" name="age" value="R2"> Mais de 18 e menos de 40</div>
+                <div><input type="radio" name="age" value="R3"> Mais de 40 e menos de 65</div>
+                <div><input type="radio" name="age" value="R4"> Mais de 65</div>
+            </div>
+        </div>
+
+        <br>
+
+        <div>
+            <div>Morada</div>
+            <div>
+              <table>
+                <tr>
+                  <td>Distrito</td>
+                  <td>
+                    <select size="1" onchange="SelectDistrictChange()" name="district" id="district">
+                      <option value="-1"> </option>
+                      {% for currentDistrict in districts %}
+                        <option value="{{ currentDistrict[ 'ID'] }}">{{ currentDistrict[ 'Valor'] }}</option>
+                      {% endfor %}
+                    </select>
+                  </td>
+
+                </tr>
+        
+                <tr>
+                  <td>Concelho</td>
+                  <td>
+                    <select size="1" onchange="SelectCountyChange()" name="county" id="county"></select>
+                  </td>
+                </tr>
+                
+                <tr>
+                  <td>Código-Postal</td>
+                  <td>
+                    <select size="1" onchange="SelectPostalCodeChange()" name="postal" id="postal" ></select>
+                  </td>
+                </tr>
+        
+                <tr>
+                  <td colspan="2"><img id="imgDistrict" height="300" src="/static/images/distritos/0.gif"></td>
+                </tr>
+              </table>                      
+            </div>
+        </div>
+
+      <input type="submit" name="Submit" value="Submit">
+      <input type="reset" name="Reset" value="Reset"><p>
+    </form>
+  </body>
+</html>
