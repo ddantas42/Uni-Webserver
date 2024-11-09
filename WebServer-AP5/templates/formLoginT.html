@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>PgWeb - AP5</title>
+
+        <meta http-equiv='Content-Type' content='text/html; charset=utf-8'>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+		           
+        <link REL="stylesheet" TYPE="text/css" href="/static/styles/GlobalStyle.css">
+
+        <script type="text/javascript" src="/static/scripts/forms.js">
+        </script>
+    </head>
+
+    <body>
+        <div>
+            <div>
+                <h1>Processing HTML Forms with Phyton</h1>
+                <h2>Login</h2>
+            </div>
+            <div>
+                <img class="myImage" src="/static/images/LogoBig.png" alt="Logo" />
+                <img class="myImage myImageSmallScreen" src="/static/images/LogoSmall.png" alt="Logo"/>
+            </div>
+        </div>
+
+        <br>
+
+        <form action="/doLogin" onsubmit="return FormLoginValidator()" method="POST" name="FormLogin" >
+		
+			<fieldset>
+				<legend>Dados de <i>login</i>:</legend>
+
+				<label for="vatID">NIF</label><br>
+				<input 
+					type="text" 
+					id="vatID" 
+					name="vatName" 
+					placeholder="Digite o seu NIF" 
+					required
+					pattern="{{ vatRegEx }}"
+					title="NIF válido">
+				<br>
+					
+				<label for="passwordID">Palavra chave:</label><br>
+				<input 
+					type="password" 
+					id="passwordID" 
+					name="passwordName" 
+					required 
+					pattern="{{ passwordRegEx }}"
+					title="Entre 3 e 7 caracteres">
+				<br>
+			</fieldset>
+
+			<br>
+			<input type="submit" name="Submit" value="Enviar"> <input type="reset" name="Reset" value="Limpar">
+        </form>
+    </body>
+</html>

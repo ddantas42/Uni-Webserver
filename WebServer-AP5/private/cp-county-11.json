@@ -1,0 +1,18 @@
+[
+	{ "ID" : "1", "Valor" : "Alenquer" },
+	{ "ID" : "2", "Valor" : "Arruda dos Vinhos" },
+	{ "ID" : "3", "Valor" : "Azambuja" },
+	{ "ID" : "4", "Valor" : "Cadaval" },
+	{ "ID" : "5", "Valor" : "Cascais" },
+	{ "ID" : "6", "Valor" : "Lisboa" },
+	{ "ID" : "7", "Valor" : "Loures" },
+	{ "ID" : "8", "Valor" : "Lourinhã" },
+	{ "ID" : "9", "Valor" : "Mafra" },
+	{ "ID" : "10", "Valor" : "Oeiras" },
+	{ "ID" : "11", "Valor" : "Sintra" },
+	{ "ID" : "12", "Valor" : "Sobral de Monte Agraço" },
+	{ "ID" : "13", "Valor" : "Torres Vedras" },
+	{ "ID" : "14", "Valor" : "Vila Franca de Xira" },
+	{ "ID" : "15", "Valor" : "Amadora" },
+	{ "ID" : "16", "Valor" : "Odivelas" }
+]
