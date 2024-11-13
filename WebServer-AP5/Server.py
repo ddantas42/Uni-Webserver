@@ -196,11 +196,24 @@ def createProfile():
 def	doRegister():
 	logging.debug(  f"Route /doRegister called...")
 
-	try:
-		logging.debug( f"NIF = {request.form['vatName']}")
-		logging.debug( f"email = {request.form['emailName']}")
-		logging.debug( f"password = {request.form['passwordName']}")
-	except Exception as e:
-		logging.debug( f"Error: ${e}")
+	nif = request.form[ 'vatName' ]
+	logging.debug( f"NIF recebido: {nif}")
+	password = request.form[ 'passwordName' ]
+	logging.debug( f"Password recebida: {password}")
+	email = request.form[ 'emailName' ]
+	logging.debug( f"Email recebido: {email}")
 
-	return redirect( "/static/index.html", code=302 )
+	db = loadData( './private/user-data.json' )
+
+	if nif in db:
+		return render_template( 'dadosInvalidosT.html', errorMessage="NIF já registado", redirectURL=request.referrer )
+	
+	db[ nif ] = { "password" : password, "email" : email, "verified" : False }
+
+	# Mandar email de verificacao
+	# Após verificado (user ter clicado no link), alterar para "true" a variável "verified"
+
+	saveData( './private/user-data.json', db )
+	
+	return render_template( 'formLoginT.html', vatRegEx=vatRegEx, passwordRegEx=passwordRegEx )
+

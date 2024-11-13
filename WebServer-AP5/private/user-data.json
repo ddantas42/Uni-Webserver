@@ -1,8 +1,7 @@
-[
-		{
-			"nif" : 123465789,
-			"email" : "teste@gmail.com",
-			"password" : "Maluco_Joaquim",
-            "vericado" : true
-		}
-]
+{
+    "987654321": {
+        "password": "password123",
+        "email": "example@example.com",
+        "verified": false
+    }
+}
